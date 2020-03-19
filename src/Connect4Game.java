@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class Connect4Game extends AbstractGame{
+
+    public Connect4Game() {
+        this.setBoard(new Connect4Board());
+        this.setP1(new Player("x"));
+        this.setP2(new Player("o"));
+    }
+
+    public int[] scanForPiece() {
+        System.out.println("Enter a column to drop into!");
+        Scanner scan = new Scanner(System.in);
+        int col = scan.nextInt();
+
+        int[] coordinate = new int[2];
+        coordinate[0] = col;
+        coordinate[1] = 0;
+
+        if (!board.validMove(coordinate)) {
+            System.out.println("Invalid column. Please try again.");
+            return scanForPiece();
+        }
+
+        return coordinate;
+    }
+}

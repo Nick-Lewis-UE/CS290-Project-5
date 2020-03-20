@@ -51,11 +51,11 @@ public class BoardTest {
     public void testPrintBoard() {
         System.out.println("Empty Connect4 Board.");
         Connect4Board b1 = new Connect4Board();
-        b1.printBoard();
+        b1.toString();
 
         System.out.println("Empty Gomoku Board.");
         GomokuBoard g1 = new GomokuBoard();
-        g1.printBoard();
+        g1.toString();
     }
 
     @Test

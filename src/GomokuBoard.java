@@ -25,11 +25,11 @@ public class GomokuBoard extends RowBasedBoard {
             grid.get(loc[1]-1).set(loc[0]-1, p);
     }
 
-    public void printBoard() {
+    public String toString() {
+        String board = "|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|\n";
         int rowID = 1;
-        System.out.print("|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|\n");
         for (int i = 0; i < num_row; i++) {
-            System.out.println("|" + grid.get(i).get(0).getSymbol() +
+            board += "|" + grid.get(i).get(0).getSymbol() +
                     "|" + grid.get(i).get(1).getSymbol() +
                     "|" + grid.get(i).get(2).getSymbol() +
                     "|" + grid.get(i).get(3).getSymbol() +
@@ -48,8 +48,10 @@ public class GomokuBoard extends RowBasedBoard {
                     "|" + grid.get(i).get(16).getSymbol() +
                     "|" + grid.get(i).get(17).getSymbol() +
                     "|" + grid.get(i).get(18).getSymbol() +
-                    "|" + rowID++);
+                    "|" + rowID++ + "\n";
         }
+
+        return board;
     }
 
     public boolean hasWin(Player p, int[] loc) {

@@ -18,7 +18,7 @@ public abstract class AbstractGame {
 
             move = scanForMove();
             this.board.takeMove(playing.getPiece(), move);
-            this.board.printBoard();
+            System.out.println(this.board.toString());
             if (board.hasWin(playing, move)) {
                 endMessage = playing.getWinMessage();
                 break;

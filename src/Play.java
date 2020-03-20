@@ -6,7 +6,7 @@ public class Play {
         AbstractGame game;
 
         game = startup(scan);
-        game.getBoard().printBoard();
+        System.out.println(game.getBoard().toString());
         game.play();
 
     }

@@ -15,9 +15,10 @@ public class CheckersBoard extends AbstractBoard {
     }
 
     @Override
-    public void printBoard() {
+    public String toString() {
+        String board = "";
         for (int i = 0; i < num_row; i++) {
-            System.out.println("|"+grid.get(i).get(0).getSymbol()+
+            board += "|"+grid.get(i).get(0).getSymbol()+
                     "|"+grid.get(i).get(1).getSymbol()+
                     "|"+grid.get(i).get(2).getSymbol()+
                     "|"+grid.get(i).get(3).getSymbol()+
@@ -25,8 +26,10 @@ public class CheckersBoard extends AbstractBoard {
                     "|"+grid.get(i).get(5).getSymbol()+
                     "|"+grid.get(i).get(6).getSymbol()+
                     "|"+grid.get(i).get(7).getSymbol()+
-                    "|");
+                    "|" + "\n";
         }
+
+        return board;
     }
 
     @Override

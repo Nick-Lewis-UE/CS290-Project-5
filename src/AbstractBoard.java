@@ -27,7 +27,7 @@ public abstract class AbstractBoard {
 
     public abstract void takeMove(Piece p, int[] loc);
 
-    public abstract void printBoard();
+    public abstract String toString();
 
     public abstract ArrayList<ArrayList<Piece>> makeStartBoard();
 

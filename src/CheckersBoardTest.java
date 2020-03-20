@@ -10,15 +10,15 @@ public class CheckersBoardTest extends BoardTest {
     public void testConstructors() {}
 
     @Test
-    public void takeMove() {
+    public void testTakeMove() {
     }
 
     @Test
-    public void printBoard() {
+    public void testPrintBoard() {
     }
 
     @Test
-    public void makeStartBoard() {
+    public void testMakeStartBoard() {
         ArrayList<ArrayList<Piece>> a = new ArrayList<>();
         a.add(0, new ArrayList<>());
         a.add(1, new ArrayList<>());
@@ -119,14 +119,14 @@ public class CheckersBoardTest extends BoardTest {
     }
 
     @Test
-    public void hasWin() {
+    public void testHasWin() {
     }
 
     @Test
-    public void validMove() {
+    public void testValidMove() {
     }
 
     @Test
-    public void hasTie() {
+    public void testHasTie() {
     }
 }

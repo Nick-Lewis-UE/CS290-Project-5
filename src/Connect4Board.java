@@ -21,18 +21,21 @@ public class Connect4Board extends RowBasedBoard {
         }
     }
 
-    public void printBoard() {
+    public String toString() {
+        String board = "";
         System.out.print("|1|2|3|4|5|6|7|\n");
         for (int i = 0; i < num_row; i++) {
-            System.out.println("|"+grid.get(i).get(0).getSymbol()+
+            board += "|"+grid.get(i).get(0).getSymbol()+
                     "|"+grid.get(i).get(1).getSymbol()+
                     "|"+grid.get(i).get(2).getSymbol()+
                     "|"+grid.get(i).get(3).getSymbol()+
                     "|"+grid.get(i).get(4).getSymbol()+
                     "|"+grid.get(i).get(5).getSymbol()+
                     "|"+grid.get(i).get(6).getSymbol()+
-                    "|");
+                    "|" + "\n";
         }
+
+        return board;
     }
 
     public boolean hasWin(Player p, int[] loc) {

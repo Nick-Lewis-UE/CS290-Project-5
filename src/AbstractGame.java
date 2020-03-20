@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public abstract class AbstractGame {
 
     public AbstractGame() {
@@ -10,9 +8,8 @@ public abstract class AbstractGame {
     protected Player p2;
 
     public void play() {
-        int winningPlayer = 1;
+        int winningPlayer;
         while (true) {
-            Scanner scan = new Scanner(System.in);
             int[] loc;
 //            int gridIndex;
 //

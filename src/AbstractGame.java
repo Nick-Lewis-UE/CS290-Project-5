@@ -8,44 +8,35 @@ public abstract class AbstractGame {
     protected Player p2;
 
     public void play() {
-        int winningPlayer;
+        String endMessage;
+        Player playing = p1;
+
         while (true) {
             int[] loc;
-//            int gridIndex;
-//
-            System.out.println("Player 1's turn!");
-//
-            loc = scanForMove();
-            this.board.takeMove(p1.getPiece(), loc);
-            this.board.printBoard();
-            if (board.justWon(p1, loc)) {
-                winningPlayer = 1;
-                break;
-            }
-//
-            System.out.println("Player 2's turn!");
+
+            System.out.println(playing.getName() + "'s turn!");
 
             loc = scanForMove();
-            this.board.takeMove(p2.getPiece(), loc);
+            this.board.takeMove(playing.getPiece(), loc);
             this.board.printBoard();
-            if (board.justWon(p2, loc)) {
-                winningPlayer = 2;
+            if (board.justWon(playing, loc)) {
+                endMessage = playing.getWinMessage();
                 break;
             }
 
             if (board.isFull()) {
-                winningPlayer = 0;
+                endMessage = "It's a tie! You filled the board.";
                 break;
+            }
+
+            if (playing.equals(p1)) {
+                playing = p2;
+            } else if (playing.equals(p2)) {
+                playing = p1;
             }
         }
 
-        String[] winMessage = new String[3];
-        winMessage[0] = "It's a tie! You filled the board.";
-        winMessage[1] = "Player 1";
-        winMessage[2] = "Player 2";
-        System.out.println("Congratulations, " + winMessage[winningPlayer] +
-                "! You won!");
-
+        System.out.println(endMessage);
     }
 
     public abstract int[] scanForMove();

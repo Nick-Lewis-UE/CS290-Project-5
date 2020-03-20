@@ -24,8 +24,8 @@ public class GameTest {
         // Gomoku
         GomokuGame g1 = new GomokuGame();
         AbstractBoard b1 = new GomokuBoard();
-        Player p1 = new Player("x");
-        Player p2 = new Player("o");
+        Player p1 = new Player("x", "Player 1");
+        Player p2 = new Player("o", "Player 2");
 
         testGame(g1, b1, p1, p2);
 

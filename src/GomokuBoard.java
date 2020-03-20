@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class GomokuBoard extends AbstractBoard {
+public class GomokuBoard extends RowBasedBoard {
 
     public GomokuBoard(ArrayList<ArrayList<Piece>> grid) {
         this.grid = grid;
@@ -59,7 +59,7 @@ public class GomokuBoard extends AbstractBoard {
 
     public boolean justWon(Player p, int[] loc) {
         return (checkHorizontalWin(p, loc[1]) || checkVerticalWin(p, loc[0]) ||
-                checkDescDiagonal(p, loc[0], loc[1]) || checkAscDiagonal(p, loc[0], loc[1]));
+                checkDescDiagonalWin(p, loc[0], loc[1]) || checkAscDiagonalWin(p, loc[0], loc[1]));
     }
 
     public boolean validMove(int[] loc) {

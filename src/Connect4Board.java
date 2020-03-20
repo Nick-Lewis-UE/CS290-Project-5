@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 import static java.lang.Math.min;
 
-public class Connect4Board extends AbstractBoard {
+public class Connect4Board extends RowBasedBoard {
 
 //    public Connect4Board(ArrayList<ArrayList<Piece>> grid) {
 //        this.grid = grid;
@@ -13,14 +13,7 @@ public class Connect4Board extends AbstractBoard {
         this.num_row = 6;
         this.size = 42;
         this.needToWin = 4;
-        ArrayList<ArrayList<Piece>> grid = new ArrayList<>();
-        for (int i = 0; i < num_row; i++) {
-            grid.add(i, new ArrayList<>());
-            for (int j = 0; j < num_col; j++) {
-                grid.get(i).add(j, new Piece());
-            }
-        }
-        this.grid = grid;
+        this.grid = makeEmptyBoard();
     }
 
     public void addPiece(Piece p, int[] loc) {
@@ -57,12 +50,12 @@ public class Connect4Board extends AbstractBoard {
             return true;
         // descending diagonal win
         for (int i = 1; i <= num_row; i++) {
-            if (checkDescDiagonal(p, loc[0], i))
+            if (checkDescDiagonalWin(p, loc[0], i))
                 return true;
         }
         // ascending diagonal win
         for (int i = 1; i <= num_row; i++) {
-            if (checkAscDiagonal(p, loc[0], i))
+            if (checkAscDiagonalWin(p, loc[0], i))
                 return true;
         }
 

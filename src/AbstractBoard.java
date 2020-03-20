@@ -29,7 +29,7 @@ public abstract class AbstractBoard {
 
     public abstract String toString();
 
-    public abstract ArrayList<ArrayList<Piece>> makeStartBoard();
+    protected abstract ArrayList<ArrayList<Piece>> makeStartBoard();
 
     public abstract boolean hasWin(Player p, int[] loc);
 

@@ -34,7 +34,7 @@ public class CheckersBoard extends AbstractBoard {
     }
 
     @Override
-    public ArrayList<ArrayList<Piece>> makeStartBoard() {
+    protected ArrayList<ArrayList<Piece>> makeStartBoard() {
         ArrayList<ArrayList<Piece>> a = new ArrayList<>();
 
         for(int i = 0; i < num_row; i++) {

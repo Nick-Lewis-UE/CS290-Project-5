@@ -15,6 +15,23 @@ public class BoardTest {
         }
     }
 
+    protected void testBoard(AbstractBoard b, int num_col, int num_row, int size,
+                             ArrayList<ArrayList<Piece>> grid) {
+//        System.out.println("Grid Size: " + grid.size());
+        for (int i = 0; i < b.getNum_row(); i++) {
+//            System.out.println(b.getGrid().get(i).getSymbol());
+//            System.out.println(grid.get(i).getSymbol());
+            for (int j = 0; j < b.getNum_col(); j++)
+                Assert.assertEquals(grid.get(i).get(j).getSymbol(),
+                        b.getGrid().get(i).get(j).getSymbol());
+
+            Assert.assertEquals(num_col, b.getNum_col());
+            Assert.assertEquals(num_row, b.getNum_row());
+            Assert.assertEquals(size, b.getSize());
+        }
+    }
+
+
     public ArrayList<ArrayList<Piece>> makeEmptyBoard(int rows, int cols) {
         ArrayList<ArrayList<Piece>> a= new ArrayList();
         for (int i = 0; i < rows; i++) {

@@ -5,8 +5,17 @@ import java.util.ArrayList;
 
 public class CheckersBoardTest extends BoardTest {
 
+    int num_col = 8;
+    int num_row = 8;
+    int size = 64;
+
     @Test
-    public void testConstructors() {}
+    public void testConstructors() {
+        CheckersBoard c = new CheckersBoard();
+        ArrayList<ArrayList<Piece>> b = c.makeStartBoard();
+
+        testBoard(c, num_col, num_row, size, b);
+    }
 
     @Test
     public void testTakeMove() {

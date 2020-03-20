@@ -5,10 +5,6 @@ import static java.lang.Math.min;
 
 public class GomokuBoard extends RowBasedBoard {
 
-    public GomokuBoard(ArrayList<ArrayList<Piece>> grid) {
-        this.grid = grid;
-    }
-
     public GomokuBoard() {
 
         this.num_col = 19;
@@ -30,7 +26,6 @@ public class GomokuBoard extends RowBasedBoard {
     }
 
     public void printBoard() {
-        char label = 'A';
         int rowID = 1;
         System.out.print("|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|\n");
         for (int i = 0; i < num_row; i++) {

@@ -1,5 +1,3 @@
-import static java.lang.Math.min;
-
 public class Connect4Board extends RowBasedBoard {
 
 //    public Connect4Board(ArrayList<ArrayList<Piece>> grid) {

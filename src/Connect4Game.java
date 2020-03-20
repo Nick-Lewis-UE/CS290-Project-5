@@ -13,7 +13,7 @@ public class Connect4Game extends AbstractGame{
         Scanner scan = new Scanner(System.in);
         int col = scan.nextInt();
 
-        int[] coordinate = new int[2];
+        int[] coordinate = new int[1];
         coordinate[0] = col;
 
         if (board.validMove(coordinate)) {

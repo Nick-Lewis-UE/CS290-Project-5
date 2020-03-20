@@ -16,7 +16,8 @@ public class CheckersBoard extends AbstractBoard {
 
     @Override
     public String toString() {
-        String board = "";
+        int row_num = 8;
+        String board = "|A|B|C|D|E|F|G|H|\n";
         for (int i = 0; i < num_row; i++) {
             board += "|"+grid.get(i).get(0).getSymbol()+
                     "|"+grid.get(i).get(1).getSymbol()+
@@ -26,7 +27,7 @@ public class CheckersBoard extends AbstractBoard {
                     "|"+grid.get(i).get(5).getSymbol()+
                     "|"+grid.get(i).get(6).getSymbol()+
                     "|"+grid.get(i).get(7).getSymbol()+
-                    "|" + "\n";
+                    "|" + " " + row_num-- + "\n";
         }
 
         return board;

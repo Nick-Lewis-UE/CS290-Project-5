@@ -1,7 +1,6 @@
-import com.sun.tools.doclint.Checker;
+import org.junit.Assert;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CheckersBoardTest extends BoardTest {
@@ -14,7 +13,23 @@ public class CheckersBoardTest extends BoardTest {
     }
 
     @Test
-    public void testPrintBoard() {
+    public void testToString() {
+        CheckersBoard c1 = new CheckersBoard();
+
+        String s = "|A|B|C|D|E|F|G|H|\n" +
+                "| |x| |x| |x| |x| 8\n" +
+                "|x| |x| |x| |x| | 7\n" +
+                "| |x| |x| |x| |x| 6\n" +
+                "| | | | | | | | | 5\n" +
+                "| | | | | | | | | 4\n" +
+                "|o| |o| |o| |o| | 3\n" +
+                "| |o| |o| |o| |o| 2\n" +
+                "|o| |o| |o| |o| | 1\n";
+
+//        System.out.println(s);
+//        System.out.println(c1.toString());
+
+        Assert.assertEquals(s, c1.toString());
     }
 
     @Test

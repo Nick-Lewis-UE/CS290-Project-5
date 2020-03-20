@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class GameTest {
     private void testGame(AbstractGame g, AbstractBoard b, Player p1, Player p2) {
-        ArrayList<ArrayList<Piece>> grid = b.makeEmptyBoard();
+        ArrayList<ArrayList<Piece>> grid = b.makeStartBoard();
         Assert.assertEquals(grid.size()*grid.get(0).size(), b.getSize());
         for (int i = 0; i < b.getNum_row(); i++) {
 //            System.out.println(b.getGrid().get(i).getSymbol());

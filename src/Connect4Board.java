@@ -9,7 +9,7 @@ public class Connect4Board extends RowBasedBoard {
         this.num_row = 6;
         this.size = 42;
         this.needToWin = 4;
-        this.grid = makeEmptyBoard();
+        this.grid = makeStartBoard();
     }
 
     public void takeMove(Piece p, int[] loc) {

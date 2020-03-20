@@ -29,16 +29,7 @@ public abstract class AbstractBoard {
 
     public abstract void printBoard();
 
-    public ArrayList<ArrayList<Piece>> makeEmptyBoard() {
-        ArrayList<ArrayList<Piece>> a= new ArrayList<>();
-        for (int i = 0; i < num_row; i++) {
-            a.add(i, new ArrayList<>());
-            for (int j = 0; j < num_col; j++) {
-                a.get(i).add(j, new Piece());
-            }
-        }
-        return a;
-    }
+    public abstract ArrayList<ArrayList<Piece>> makeStartBoard();
 
     public abstract boolean hasWin(Player p, int[] loc);
 

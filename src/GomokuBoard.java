@@ -63,7 +63,7 @@ public class GomokuBoard extends RowBasedBoard {
     }
 
     public boolean validMove(int[] loc) {
-        return (loc[1] <= num_row && loc[1] > 0 && loc[0] > 0 && loc[0] <= num_col &&
-                grid.get(loc[1]-1).get(loc[0]-1).getSymbol().equals(" "));
+        return (loc[1] > num_row || loc[1] <= 0 || loc[0] <= 0 || loc[0] > num_col ||
+                !grid.get(loc[1] - 1).get(loc[0] - 1).getSymbol().equals(" "));
     }
 }

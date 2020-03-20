@@ -17,7 +17,7 @@ public class GomokuGame extends AbstractGame {
         loc[0] = (int)letter.charAt(0)-64;
         loc[1] = scan.nextInt();
 
-        if (!board.validMove(loc)) {
+        if (board.validMove(loc)) {
             System.out.println("Invalid row/column. Please try again.");
             return scanForMove();
         }

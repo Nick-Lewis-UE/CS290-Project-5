@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 import static java.lang.Math.min;
 
 public class Connect4Board extends RowBasedBoard {
@@ -63,7 +61,7 @@ public class Connect4Board extends RowBasedBoard {
     }
 
     public boolean validMove(int[] loc) {
-        return (loc[0] > 0 && loc[0] <= num_col &&
-                grid.get(0).get(loc[0]-1).getSymbol().equals(" "));
+        return (loc[0] <= 0 || loc[0] > num_col ||
+                !grid.get(0).get(loc[0] - 1).getSymbol().equals(" "));
     }
 }

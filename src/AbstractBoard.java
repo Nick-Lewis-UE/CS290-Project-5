@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-import static java.lang.Math.min;
-
 public abstract class AbstractBoard {
     // outer list is rows, inner list is columns
     protected ArrayList<ArrayList<Piece>> grid;
@@ -32,7 +30,7 @@ public abstract class AbstractBoard {
     public abstract void printBoard();
 
     public ArrayList<ArrayList<Piece>> makeEmptyBoard() {
-        ArrayList<ArrayList<Piece>> a= new ArrayList();
+        ArrayList<ArrayList<Piece>> a= new ArrayList<>();
         for (int i = 0; i < num_row; i++) {
             a.add(i, new ArrayList<>());
             for (int j = 0; j < num_col; j++) {

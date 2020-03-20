@@ -9,7 +9,7 @@ public class GomokuGame extends AbstractGame {
     }
 
     @Override
-    public int[] scanForPiece(){
+    public int[] scanForMove(){
         System.out.println("Enter the coordinate to place your piece at!");
         int[] loc = new int[2];
         Scanner scan = new Scanner(System.in);
@@ -19,7 +19,7 @@ public class GomokuGame extends AbstractGame {
 
         if (!board.validMove(loc)) {
             System.out.println("Invalid row/column. Please try again.");
-            return scanForPiece();
+            return scanForMove();
         }
 
         return loc;

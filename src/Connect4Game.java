@@ -8,7 +8,7 @@ public class Connect4Game extends AbstractGame{
         this.setP2(new Player("o"));
     }
 
-    public int[] scanForPiece() {
+    public int[] scanForMove() {
         System.out.println("Enter a column to drop into!");
         Scanner scan = new Scanner(System.in);
         int col = scan.nextInt();
@@ -19,7 +19,7 @@ public class Connect4Game extends AbstractGame{
 
         if (!board.validMove(coordinate)) {
             System.out.println("Invalid column. Please try again.");
-            return scanForPiece();
+            return scanForMove();
         }
 
         return coordinate;

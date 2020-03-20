@@ -1,6 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
-import java.lang.reflect.Array;
 import java.util.Scanner;
 
 public abstract class AbstractGame {
@@ -21,7 +18,7 @@ public abstract class AbstractGame {
 //
             System.out.println("Player 1's turn!");
 //
-            loc = scanForPiece();
+            loc = scanForMove();
             this.board.addPiece(p1.getPiece(), loc);
             this.board.printBoard();
             if (board.justWon(p1, loc)) {
@@ -31,7 +28,7 @@ public abstract class AbstractGame {
 //
             System.out.println("Player 2's turn!");
 
-            loc = scanForPiece();
+            loc = scanForMove();
             this.board.addPiece(p2.getPiece(), loc);
             this.board.printBoard();
             if (board.justWon(p2, loc)) {
@@ -54,7 +51,7 @@ public abstract class AbstractGame {
 
     }
 
-    public int[] scanForPiece() { return new int[2];}
+    public abstract int[] scanForMove();
 
     public AbstractBoard getBoard() {
         return board;

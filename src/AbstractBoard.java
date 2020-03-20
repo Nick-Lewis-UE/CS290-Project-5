@@ -27,7 +27,7 @@ public abstract class AbstractBoard {
         return grid;
     }
 
-    public abstract void addPiece(Piece p, int[] loc);
+    public abstract void takeMove(Piece p, int[] loc);
 
     public abstract void printBoard();
 

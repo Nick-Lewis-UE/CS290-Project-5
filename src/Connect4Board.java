@@ -16,7 +16,7 @@ public class Connect4Board extends RowBasedBoard {
         this.grid = makeEmptyBoard();
     }
 
-    public void addPiece(Piece p, int[] loc) {
+    public void takeMove(Piece p, int[] loc) {
         for (int i = num_row-1; i >= 0; i--) {
             if (grid.get(i).get(loc[0]-1).getSymbol().equals(" ")) {
                 grid.get(i).set(loc[0]-1, p);

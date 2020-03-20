@@ -16,7 +16,7 @@ public abstract class AbstractGame {
             System.out.println("Player 1's turn!");
 //
             loc = scanForMove();
-            this.board.addPiece(p1.getPiece(), loc);
+            this.board.takeMove(p1.getPiece(), loc);
             this.board.printBoard();
             if (board.justWon(p1, loc)) {
                 winningPlayer = 1;
@@ -26,7 +26,7 @@ public abstract class AbstractGame {
             System.out.println("Player 2's turn!");
 
             loc = scanForMove();
-            this.board.addPiece(p2.getPiece(), loc);
+            this.board.takeMove(p2.getPiece(), loc);
             this.board.printBoard();
             if (board.justWon(p2, loc)) {
                 winningPlayer = 2;

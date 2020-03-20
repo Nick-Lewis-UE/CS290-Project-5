@@ -65,7 +65,7 @@ public class BoardTest {
         Piece p1 = new Piece("x");
         int[] loc1 = new int[2];
         loc1[0] = loc1[1] = 5;
-        g1.addPiece(p1, loc1);
+        g1.takeMove(p1, loc1);
 
         ArrayList<ArrayList<Piece>> a1 = makeEmptyBoard(19,19);
         a1.get(4).set(4, p1);
@@ -79,8 +79,8 @@ public class BoardTest {
         int[] loc3 = new int[1];
         loc2[0] = 3;
         loc3[0] = 5;
-        c1.addPiece(p2, loc2);
-        c1.addPiece(p3, loc3);
+        c1.takeMove(p2, loc2);
+        c1.takeMove(p3, loc3);
         ArrayList<ArrayList<Piece>> a2 = makeEmptyBoard(6,7);
         a2.get(5).set(2, p2);
         a2.get(5).set(4, p3);
@@ -88,7 +88,7 @@ public class BoardTest {
 
         int[] loc4 = new int[1];
         loc4[0] = 5;
-        c1.addPiece(p3, loc4);
+        c1.takeMove(p3, loc4);
         a2.get(4).set(4, p3);
         testBoard(c1, a2);
     }
@@ -97,12 +97,12 @@ public class BoardTest {
     public void testIllegalAddPiece() {
         GomokuBoard g1 = new GomokuBoard();
         Piece p1 = new Piece("x");
-        g1.addPiece(p1, makeLoc(300, 300));
-        g1.addPiece(p1, makeLoc(-20, -1));
+        g1.takeMove(p1, makeLoc(300, 300));
+        g1.takeMove(p1, makeLoc(-20, -1));
 
         Connect4Board c1 = new Connect4Board();
-        c1.addPiece(p1, makeLoc(300, 300));
-        c1.addPiece(p1, makeLoc(-5, 3));
+        c1.takeMove(p1, makeLoc(300, 300));
+        c1.takeMove(p1, makeLoc(-5, 3));
     }
 
     @Test
@@ -111,20 +111,20 @@ public class BoardTest {
         Piece p1 = new Piece("x");
         Player player1 = new Player("x");
 
-        g1.addPiece(p1,makeLoc(1,1));
-        g1.addPiece(p1,makeLoc(1,2));
-        g1.addPiece(p1,makeLoc(1,3));
-        g1.addPiece(p1,makeLoc(1,4));
-        g1.addPiece(p1,makeLoc(1,5));
+        g1.takeMove(p1,makeLoc(1,1));
+        g1.takeMove(p1,makeLoc(1,2));
+        g1.takeMove(p1,makeLoc(1,3));
+        g1.takeMove(p1,makeLoc(1,4));
+        g1.takeMove(p1,makeLoc(1,5));
 
         Assert.assertEquals(true, g1.justWon(player1, makeLoc(1,1)));
 
         GomokuBoard g2 = new GomokuBoard();
-        g2.addPiece(p1,makeLoc(5,2));
-        g2.addPiece(p1,makeLoc(6,2));
-        g2.addPiece(p1,makeLoc(7,2));
-        g2.addPiece(p1,makeLoc(8,2));
-        g2.addPiece(p1,makeLoc(9,2));
+        g2.takeMove(p1,makeLoc(5,2));
+        g2.takeMove(p1,makeLoc(6,2));
+        g2.takeMove(p1,makeLoc(7,2));
+        g2.takeMove(p1,makeLoc(8,2));
+        g2.takeMove(p1,makeLoc(9,2));
 
         Assert.assertEquals(true, g2.justWon(player1, makeLoc(7,2)));
 

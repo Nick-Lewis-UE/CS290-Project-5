@@ -4,7 +4,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 public class BoardTest {
-    private void testBoard(AbstractBoard b, ArrayList<ArrayList<Piece>> grid) {
+    protected void testBoard(AbstractBoard b, ArrayList<ArrayList<Piece>> grid) {
 //        System.out.println("Grid Size: " + grid.size());
         for (int i = 0; i < b.getNum_row(); i++) {
 //            System.out.println(b.getGrid().get(i).getSymbol());

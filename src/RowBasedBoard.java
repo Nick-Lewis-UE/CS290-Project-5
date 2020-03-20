@@ -80,4 +80,13 @@ public abstract class RowBasedBoard extends AbstractBoard {
 
         return false;
     }
+
+    public boolean hasTie() {
+        for (int i = 0; i < num_row; i++)
+            for (int j = 0; j < num_col; j++)
+                if (grid.get(i).get(j).getSymbol().equals(" ")) {
+                    return false;
+                }
+        return true;
+    }
 }

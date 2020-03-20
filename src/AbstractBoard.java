@@ -44,12 +44,5 @@ public abstract class AbstractBoard {
 
     public abstract boolean validMove(int[] loc);
 
-    public boolean isFull() {
-        for (int i = 0; i < num_row; i++)
-            for (int j = 0; j < num_col; j++)
-                if (grid.get(i).get(j).getSymbol().equals(" ")) {
-                    return false;
-                }
-        return true;
-    }
+    public abstract boolean hasTie();
 }

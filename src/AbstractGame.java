@@ -12,19 +12,19 @@ public abstract class AbstractGame {
         Player playing = p1;
 
         while (true) {
-            int[] loc;
+            int[] move;
 
             System.out.println(playing.getName() + "'s turn!");
 
-            loc = scanForMove();
-            this.board.takeMove(playing.getPiece(), loc);
+            move = scanForMove();
+            this.board.takeMove(playing.getPiece(), move);
             this.board.printBoard();
-            if (board.hasWin(playing, loc)) {
+            if (board.hasWin(playing, move)) {
                 endMessage = playing.getWinMessage();
                 break;
             }
 
-            if (board.isFull()) {
+            if (board.hasTie()) {
                 endMessage = "It's a tie! You filled the board.";
                 break;
             }

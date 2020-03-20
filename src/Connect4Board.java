@@ -35,7 +35,7 @@ public class Connect4Board extends RowBasedBoard {
         }
     }
 
-    public boolean justWon(Player p, int[] loc) {
+    public boolean hasWin(Player p, int[] loc) {
         // not working
         for (int j = 1; j <= num_row; j++) {
             if (checkHorizontalWin(p, j))

@@ -117,7 +117,7 @@ public class BoardTest {
         g1.takeMove(p1,makeLoc(1,4));
         g1.takeMove(p1,makeLoc(1,5));
 
-        Assert.assertEquals(true, g1.justWon(player1, makeLoc(1,1)));
+        Assert.assertEquals(true, g1.hasWin(player1, makeLoc(1,1)));
 
         GomokuBoard g2 = new GomokuBoard();
         g2.takeMove(p1,makeLoc(5,2));
@@ -126,7 +126,7 @@ public class BoardTest {
         g2.takeMove(p1,makeLoc(8,2));
         g2.takeMove(p1,makeLoc(9,2));
 
-        Assert.assertEquals(true, g2.justWon(player1, makeLoc(7,2)));
+        Assert.assertEquals(true, g2.hasWin(player1, makeLoc(7,2)));
 
     }
 }

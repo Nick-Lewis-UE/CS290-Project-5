@@ -40,7 +40,7 @@ public abstract class AbstractBoard {
         return a;
     }
 
-    public abstract boolean justWon(Player p, int[] loc);
+    public abstract boolean hasWin(Player p, int[] loc);
 
     public abstract boolean validMove(int[] loc);
 

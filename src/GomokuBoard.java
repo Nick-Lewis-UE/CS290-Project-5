@@ -52,7 +52,7 @@ public class GomokuBoard extends RowBasedBoard {
         }
     }
 
-    public boolean justWon(Player p, int[] loc) {
+    public boolean hasWin(Player p, int[] loc) {
         return (checkHorizontalWin(p, loc[1]) || checkVerticalWin(p, loc[0]) ||
                 checkDescDiagonalWin(p, loc[0], loc[1]) || checkAscDiagonalWin(p, loc[0], loc[1]));
     }

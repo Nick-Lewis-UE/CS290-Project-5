@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+
 public class CheckersBoard extends AbstractBoard {
 
     public CheckersBoard() {
@@ -11,7 +13,8 @@ public class CheckersBoard extends AbstractBoard {
 
     @Override
     public void takeMove(Piece p, int[] loc) {
-
+        Piece moved = grid.get(loc[1]).get(loc[0]);
+        System.out.println(moved.getSymbol());
     }
 
     @Override
@@ -61,6 +64,39 @@ public class CheckersBoard extends AbstractBoard {
 
     @Override
     public boolean validMove(int[] loc) {
+        // check if the piece is in the first location
+        if (grid.get(loc[1]).get(loc[0]).getSymbol() == " ") {
+            // Check if the piece is yours
+            System.out.println("You don't have a piece at that starting location.");
+            return false;
+        }
+
+        // check if the there the second coordinate is taken
+        if (grid.get(loc[3]).get(loc[2]).getSymbol() != " ") {
+            System.out.println("There is already another piece where you're trying to go.");
+            return false;
+        }
+
+        // check if not diagonal
+        if (loc[0] == loc[2] || loc[1] == loc[3]) {
+            System.out.println("You can only move pieces diagonally.");
+            return false;
+        }
+
+        // check if too big of a move
+        if (abs(loc[3]-loc[1]) > 2 || abs(loc[2]-loc[0]) > 2) {
+            System.out.println("You can only move one square at a time or two if you're jumping.");
+            return false;
+        }
+
+        // check if valid jump
+        if (abs(loc[3]-loc[1]) == 2 && abs(loc[2]-loc[0]) == 2) {
+            // Check if the piece in the middle is the other players
+            System.out.println("You can only move one square at a time unless you're jumping" +
+                    " ,and there's nothing to jump there.");
+            return false;
+        }
+
         return true;
     }
 

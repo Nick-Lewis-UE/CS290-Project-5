@@ -148,6 +148,31 @@ public class CheckersBoardTest extends BoardTest {
 
     @Test
     public void testValidMove() {
+        CheckersBoard c1 = new CheckersBoard();
+
+        // valid move
+        int[] move1 = new int[] {1,2,2,3};
+        Assert.assertTrue(c1.validMove(move1));
+
+        // invalid starting point
+        int[] move2 = new int[] {1,1,2,2};
+        Assert.assertFalse(c1.validMove(move2));
+
+        // invalid ending point
+        int[] move3 = new int[] {0,1,1,2};
+        Assert.assertFalse(c1.validMove(move3));
+
+        // no piece to be jumped
+        int[] move4 = new int[] {1,2,3,4};
+        Assert.assertFalse(c1.validMove(move4));
+
+        // not diagonal move
+        int[] move5 = new int[] {1,2,1,3};
+        Assert.assertFalse(c1.validMove(move5));
+
+        // can't move backwards (need to write takeMove first)
+
+        // must take forced jump
     }
 
     @Test

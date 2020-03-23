@@ -20,7 +20,6 @@ public class CheckersGame extends AbstractGame {
         move[3] = 8-(line.charAt(4)-'0');
 
         if (!board.validMove(move, turn)) {
-            System.out.println("Invalid column. Please try again.");
             return scanForMove();
         }
 //        System.out.println(move[0] + "-" +

@@ -14,7 +14,9 @@ public class CheckersBoard extends AbstractBoard {
     @Override
     public void takeMove(Piece p, int[] loc) {
         Piece moved = grid.get(loc[1]).get(loc[0]);
-        System.out.println(moved.getSymbol());
+
+        grid.get(loc[3]).set(loc[2], moved);
+        grid.get(loc[1]).set(loc[0], new Piece());
     }
 
     @Override

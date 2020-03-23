@@ -63,7 +63,7 @@ public class CheckersBoard extends AbstractBoard {
     }
 
     @Override
-    public boolean validMove(int[] loc) {
+    public boolean validMove(int[] loc, Player p) {
         // check if the piece is in the first location
         if (grid.get(loc[1]).get(loc[0]).getSymbol() == " ") {
             // Check if the piece is yours
@@ -71,7 +71,7 @@ public class CheckersBoard extends AbstractBoard {
             return false;
         }
 
-        // check if the there the second coordinate is taken
+        // check if the second coordinate is taken
         if (grid.get(loc[3]).get(loc[2]).getSymbol() != " ") {
             System.out.println("There is already another piece where you're trying to go.");
             return false;

@@ -16,7 +16,7 @@ public class Connect4Game extends AbstractGame{
         int[] coordinate = new int[1];
         coordinate[0] = col;
 
-        if (board.validMove(coordinate)) {
+        if (board.validMove(coordinate, turn)) {
             System.out.println("Invalid column. Please try again.");
             return scanForMove();
         }

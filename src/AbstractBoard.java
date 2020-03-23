@@ -33,7 +33,7 @@ public abstract class AbstractBoard {
 
     public abstract boolean hasWin(Player p, int[] loc);
 
-    public abstract boolean validMove(int[] loc);
+    public abstract boolean validMove(int[] loc, Player p);
 
     public abstract boolean hasTie();
 }

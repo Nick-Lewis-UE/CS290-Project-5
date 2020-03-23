@@ -6,21 +6,22 @@ public abstract class AbstractGame {
     protected AbstractBoard board;
     protected Player p1;
     protected Player p2;
+    protected Player turn;
 
     public void play() {
         String endMessage;
-        Player playing = p1;
+        this.turn = p1;
 
         while (true) {
             int[] move;
 
-            System.out.println(playing.getName() + "'s turn!");
+            System.out.println(turn.getName() + "'s turn!");
 
             move = scanForMove();
-            this.board.takeMove(playing.getPiece(), move);
+            this.board.takeMove(turn.getPiece(), move);
             System.out.println(this.board.toString());
-            if (board.hasWin(playing, move)) {
-                endMessage = playing.getWinMessage();
+            if (board.hasWin(turn, move)) {
+                endMessage = turn.getWinMessage();
                 break;
             }
 
@@ -29,10 +30,10 @@ public abstract class AbstractGame {
                 break;
             }
 
-            if (playing.equals(p1)) {
-                playing = p2;
-            } else if (playing.equals(p2)) {
-                playing = p1;
+            if (turn.equals(p1)) {
+                turn = p2;
+            } else if (turn.equals(p2)) {
+                turn = p1;
             }
         }
 

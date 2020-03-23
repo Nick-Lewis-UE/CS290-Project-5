@@ -65,8 +65,7 @@ public class CheckersBoard extends AbstractBoard {
     @Override
     public boolean validMove(int[] loc, Player p) {
         // check if the piece is in the first location
-        if (grid.get(loc[1]).get(loc[0]).getSymbol() == " ") {
-            // Check if the piece is yours
+        if (grid.get(loc[1]).get(loc[0]).getSymbol() != p.getPiece().getSymbol()) {
             System.out.println("You don't have a piece at that starting location.");
             return false;
         }
@@ -91,10 +90,12 @@ public class CheckersBoard extends AbstractBoard {
 
         // check if valid jump
         if (abs(loc[3]-loc[1]) == 2 && abs(loc[2]-loc[0]) == 2) {
-            // Check if the piece in the middle is the other players
-            System.out.println("You can only move one square at a time unless you're jumping" +
-                    " ,and there's nothing to jump there.");
-            return false;
+            if (grid.get((loc[3]+loc[1])/2).get((loc[2]+loc[0])/2).getSymbol() == p.getPiece().getSymbol() ||
+                    grid.get((loc[3]+loc[1])/2).get((loc[2]+loc[0])/2).getSymbol() == " ") {
+                System.out.println("You can only move one square at a time unless you're jumping" +
+                        ", and there's nothing to jump there.");
+                return false;
+            }
         }
 
         return true;

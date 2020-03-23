@@ -18,6 +18,11 @@ public class CheckersGame extends AbstractGame {
         move[1] = 8-(line.charAt(1)-'0');
         move[2] = (int)line.charAt(3)-64-1;
         move[3] = 8-(line.charAt(4)-'0');
+
+        if (board.validMove(move)) {
+            System.out.println("Invalid column. Please try again.");
+            return scanForMove();
+        }
 //        System.out.println(move[0] + "-" +
 //                move[1] + "-" +
 //                move[2] + "-" +

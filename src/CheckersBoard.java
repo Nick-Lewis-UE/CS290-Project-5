@@ -61,7 +61,7 @@ public class CheckersBoard extends AbstractBoard {
 
     @Override
     public boolean validMove(int[] loc) {
-        return false;
+        return true;
     }
 
     @Override

@@ -22,10 +22,6 @@ public class CheckersGame extends AbstractGame {
         if (!board.validMove(move, turn)) {
             return scanForMove();
         }
-//        System.out.println(move[0] + "-" +
-//                move[1] + "-" +
-//                move[2] + "-" +
-//                move[3]);
 
         return move;
     }

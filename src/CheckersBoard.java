@@ -17,6 +17,12 @@ public class CheckersBoard extends AbstractBoard {
 
         grid.get(loc[3]).set(loc[2], moved);
         grid.get(loc[1]).set(loc[0], new Piece());
+
+        if (isJumpMove(loc)) {
+            int[] jumped = getJumpedPosition(loc);
+            grid.get(jumped[1]).set(jumped[0], new Piece());
+            System.out.println(jumped[0] + " " + jumped[1]);
+        }
     }
 
     @Override
@@ -91,9 +97,10 @@ public class CheckersBoard extends AbstractBoard {
         }
 
         // check if valid jump
-        if (abs(loc[3]-loc[1]) == 2 && abs(loc[2]-loc[0]) == 2) {
-            if (grid.get((loc[3]+loc[1])/2).get((loc[2]+loc[0])/2).getSymbol() == p.getPiece().getSymbol() ||
-                    grid.get((loc[3]+loc[1])/2).get((loc[2]+loc[0])/2).getSymbol() == " ") {
+        if (isJumpMove(loc)) {
+            int[] jumped = getJumpedPosition(loc);
+            if (grid.get(jumped[1]).get(jumped[0]).getSymbol() == p.getPiece().getSymbol() ||
+                    grid.get(jumped[1]).get(jumped[0]).getSymbol() == " ") {
                 System.out.println("You can only move one square at a time unless you're jumping" +
                         ", and there's nothing to jump there.");
                 return false;
@@ -106,5 +113,17 @@ public class CheckersBoard extends AbstractBoard {
     @Override
     public boolean hasTie() {
         return false;
+    }
+
+    protected boolean isJumpMove(int[] loc) {
+        return abs(loc[3]-loc[1]) == 2 && abs(loc[2]-loc[0]) == 2;
+    }
+
+    protected int[] getJumpedPosition(int[] loc) {
+        int[] jumped = new int[2];
+        jumped[0] = (loc[2]+loc[0])/2;
+        jumped[1] = (loc[3]+loc[1])/2;
+
+        return jumped;
     }
 }

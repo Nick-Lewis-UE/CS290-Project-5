@@ -1,3 +1,4 @@
+import com.sun.tools.doclint.Checker;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -178,5 +179,33 @@ public class CheckersBoardTest extends BoardTest {
 
     @Test
     public void testHasTie() {
+    }
+
+    @Test
+    public void testIsJumpMove() {
+        CheckersBoard c1 = new CheckersBoard();
+        int[] j = new int[4];
+        j[0] = 2;
+        j[1] = 3;
+        j[2] = 4;
+        j[3] = 5;
+
+        Assert.assertTrue(c1.isJumpMove(j));
+    }
+
+    @Test
+    public void testGetJumpedPosition() {
+        CheckersBoard c1 = new CheckersBoard();
+        int[] j = new int[4];
+        j[0] = 2;
+        j[1] = 3;
+        j[2] = 4;
+        j[3] = 5;
+
+        int[] jumped = new int[2];
+        jumped[0] = 3;
+        jumped[1] = 4;
+
+        Assert.assertArrayEquals(jumped, c1.getJumpedPosition(j));
     }
 }

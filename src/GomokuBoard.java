@@ -21,8 +21,8 @@ public class GomokuBoard extends RowBasedBoard {
         this.grid = grid;
     }
 
-    public void takeMove(Piece p, int[] loc) {
-            grid.get(loc[1]-1).set(loc[0]-1, p);
+    public void takeMove(Piece p, int[] move) {
+            grid.get(move[1]-1).set(move[0]-1, p);
     }
 
     public String toString() {

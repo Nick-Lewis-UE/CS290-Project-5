@@ -12,10 +12,10 @@ public class Connect4Board extends RowBasedBoard {
         this.grid = makeStartBoard();
     }
 
-    public void takeMove(Piece p, int[] loc) {
+    public void takeMove(Piece p, int[] move) {
         for (int i = num_row-1; i >= 0; i--) {
-            if (grid.get(i).get(loc[0]-1).getSymbol().equals(" ")) {
-                grid.get(i).set(loc[0]-1, p);
+            if (grid.get(i).get(move[0]-1).getSymbol().equals(" ")) {
+                grid.get(i).set(move[0]-1, p);
                 break;
             }
         }

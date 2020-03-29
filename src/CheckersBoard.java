@@ -12,14 +12,14 @@ public class CheckersBoard extends AbstractBoard {
     }
 
     @Override
-    public void takeMove(Piece p, int[] loc) {
-        Piece moved = grid.get(loc[1]).get(loc[0]);
+    public void takeMove(Piece p, int[] move) {
+        Piece moved = grid.get(move[1]).get(move[0]);
 
-        grid.get(loc[3]).set(loc[2], moved);
-        grid.get(loc[1]).set(loc[0], new Piece());
+        grid.get(move[3]).set(move[2], moved);
+        grid.get(move[1]).set(move[0], new Piece());
 
-        if (isJumpMove(loc)) {
-            int[] jumped = getJumpedPosition(loc);
+        if (isJumpMove(move)) {
+            int[] jumped = getJumpedPosition(move);
             grid.get(jumped[1]).set(jumped[0], new Piece());
             System.out.println(jumped[0] + " " + jumped[1]);
         }
@@ -125,5 +125,41 @@ public class CheckersBoard extends AbstractBoard {
         jumped[1] = (loc[3]+loc[1])/2;
 
         return jumped;
+    }
+
+    protected int countAllJumps(Piece p) {
+        int count = 0;
+
+        for (int r = 0; r < num_row; r++) {
+            for (int c = 0; c < num_col; c++) {
+                if (grid.get(r).get(c).getSymbol() == p.getSymbol()) {
+                    count += countMyJumps(p, new int[] {c,r});
+                }
+            }
+        }
+
+        return count;
+    }
+
+    protected int countMyJumps(Piece p, int[] me) {
+        int[] colAdds = new int[] {1,1,0,-1,-1,-1,0,1};
+        int[] rowAdds = new int[] {0,1,1,1,0,-1,-1,-1};
+        int count = 0;
+
+        for (int i = 0; i < 8; i++) {
+            if (me[1] + 2*rowAdds[i] < num_row &&
+                    me[1] + 2*rowAdds[i] >= 0 &&
+                    me[0] + 2*colAdds[i] < num_col &&
+                    me[0] + 2*colAdds[i] >= 0) {
+                String nextPiece = grid.get(me[1] + rowAdds[i]).get(me[0] + colAdds[i]).getSymbol();
+
+                if (nextPiece != " " && nextPiece != p.getSymbol()) {
+                    if (grid.get(me[1] + 2 * rowAdds[i]).get(me[0] + 2 * colAdds[i]).getSymbol() == " ")
+                        count++;
+                }
+            }
+        }
+
+        return count;
     }
 }

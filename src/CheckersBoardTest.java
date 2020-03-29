@@ -208,4 +208,32 @@ public class CheckersBoardTest extends BoardTest {
 
         Assert.assertArrayEquals(jumped, c1.getJumpedPosition(j));
     }
+
+    @Test
+    public void testCountAllJumps() {
+
+    }
+
+    @Test
+    public void testCountMyJumps() {
+        CheckersBoard c1 = new CheckersBoard();
+        int[] l1 = new int[] {1,2};
+        int[] l2 = new int[] {7,0};
+        int[] l3 = new int[] {1,6};
+        Piece xPiece = new Piece("x");
+        Piece oPiece = new Piece("o");
+
+        Assert.assertEquals(0, c1.countMyJumps(xPiece, l1));
+        Assert.assertEquals(0, c1.countMyJumps(xPiece, l2));
+        Assert.assertEquals(0, c1.countMyJumps(oPiece, l3));
+
+        c1.takeMove(new Piece("x"), new int[] {1,2,2,3});
+        c1.takeMove(new Piece("o"), new int[] {4,5,3,4});
+
+        Assert.assertEquals(1, c1.countMyJumps(xPiece, new int[] {2,3}));
+
+        c1.takeMove(new Piece("o"), new int[] {0,5,1,4});
+
+        Assert.assertEquals(2, c1.countMyJumps(xPiece, new int[] {2,3}));
+    }
 }

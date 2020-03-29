@@ -1,4 +1,3 @@
-import com.sun.tools.doclint.Checker;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -211,7 +210,21 @@ public class CheckersBoardTest extends BoardTest {
 
     @Test
     public void testCountAllJumps() {
+        CheckersBoard c1 = new CheckersBoard();
+        Piece xPiece = new Piece("x");
+        Piece oPiece = new Piece("o");
 
+        Assert.assertEquals(0, c1.countAllJumps(xPiece));
+        Assert.assertEquals(0, c1.countAllJumps(oPiece));
+
+        c1.takeMove(new Piece("x"), new int[] {1,2,2,3});
+        c1.takeMove(new Piece("o"), new int[] {4,5,3,4});
+
+        Assert.assertEquals(1, c1.countAllJumps(xPiece));
+
+        c1.takeMove(new Piece("o"), new int[] {0,5,1,4});
+
+        Assert.assertEquals(2, c1.countAllJumps(xPiece));
     }
 
     @Test

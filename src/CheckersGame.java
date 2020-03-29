@@ -10,6 +10,8 @@ public class CheckersGame extends AbstractGame {
 
     @Override
     public int[] scanForMove() { // returns in index format (0..7)
+
+
         System.out.println("Enter your move!");
         int[] move = new int[4];
         Scanner scan = new Scanner(System.in);

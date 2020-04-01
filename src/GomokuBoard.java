@@ -59,8 +59,8 @@ public class GomokuBoard extends RowBasedBoard {
                 checkDescDiagonalWin(p, loc[0], loc[1]) || checkAscDiagonalWin(p, loc[0], loc[1]));
     }
 
-    public boolean validMove(int[] loc, Player p) {
-        return (loc[1] > num_row || loc[1] <= 0 || loc[0] <= 0 || loc[0] > num_col ||
-                !grid.get(loc[1] - 1).get(loc[0] - 1).getSymbol().equals(" "));
+    public boolean validMove(int[] move, Player p) {
+        return (move[1] > num_row || move[1] <= 0 || move[0] <= 0 || move[0] > num_col ||
+                !grid.get(move[1] - 1).get(move[0] - 1).getSymbol().equals(" "));
     }
 }

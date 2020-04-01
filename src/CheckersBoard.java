@@ -71,34 +71,34 @@ public class CheckersBoard extends AbstractBoard {
     }
 
     @Override
-    public boolean validMove(int[] loc, Player p) {
+    public boolean validMove(int[] move, Player p) {
         // check if the piece is in the first location
-        if (grid.get(loc[1]).get(loc[0]).getSymbol() != p.getPiece().getSymbol()) {
+        if (grid.get(move[1]).get(move[0]).getSymbol() != p.getPiece().getSymbol()) {
             System.out.println("You don't have a piece at that starting location.");
             return false;
         }
 
         // check if the second coordinate is taken
-        if (grid.get(loc[3]).get(loc[2]).getSymbol() != " ") {
+        if (grid.get(move[3]).get(move[2]).getSymbol() != " ") {
             System.out.println("There is already another piece where you're trying to go.");
             return false;
         }
 
         // check if not diagonal
-        if (loc[0] == loc[2] || loc[1] == loc[3]) {
+        if (move[0] == move[2] || move[1] == move[3]) {
             System.out.println("You can only move pieces diagonally.");
             return false;
         }
 
         // check if too big of a move
-        if (abs(loc[3]-loc[1]) > 2 || abs(loc[2]-loc[0]) > 2) {
+        if (abs(move[3]- move[1]) > 2 || abs(move[2]- move[0]) > 2) {
             System.out.println("You can only move one square at a time or two if you're jumping.");
             return false;
         }
 
         // check if valid jump
-        if (isJumpMove(loc)) {
-            int[] jumped = getJumpedPosition(loc);
+        if (isJumpMove(move)) {
+            int[] jumped = getJumpedPosition(move);
             if (grid.get(jumped[1]).get(jumped[0]).getSymbol() == p.getPiece().getSymbol() ||
                     grid.get(jumped[1]).get(jumped[0]).getSymbol() == " ") {
                 System.out.println("You can only move one square at a time unless you're jumping" +
@@ -125,6 +125,46 @@ public class CheckersBoard extends AbstractBoard {
         jumped[1] = (loc[3]+loc[1])/2;
 
         return jumped;
+    }
+
+    public ArrayList<int[]> findLegalJumps(Player p) {
+        ArrayList<int[]> a = new ArrayList<>();
+
+        for (int r = 0; r <(getGrid()).size(); r++) {
+            for (int c = 0; c <(getGrid()).get(r).size(); c++) {
+                if (getGrid().get(r).get(c).getSymbol().equals(p.getPiece().getSymbol())) {
+                    ArrayList<int[]> localJumps = findLocalJumps(new int[]{c, r}, p);
+                    if (!localJumps.isEmpty())
+                        for (int[] localJump : localJumps) {
+                            a.add(a.size(), localJump);
+                        }
+                }
+            }
+        }
+
+        return a;
+    }
+
+    public ArrayList<int[]> findLocalJumps (int[] me, Player p) {
+        int[] colAdds = new int[] {1,1,-1,-1};
+        int[] rowAdds = new int[] {1,-1,1,-1};
+        ArrayList<int[]> a = new ArrayList<>();
+
+        for (int i = 0; i < 4; i++) {
+            if (me[1] + 2*rowAdds[i] < getGrid().size() &&
+                    me[1] + 2*rowAdds[i] >= 0 &&
+                    me[0] + 2*colAdds[i] < getGrid().get(1).size() &&
+                    me[0] + 2*colAdds[i] >= 0) {
+                String nextPiece = getGrid().get(me[1] + rowAdds[i]).get(me[0] + colAdds[i]).getSymbol();
+
+                if (!nextPiece.equals(" ") && !nextPiece.equals(p.getPiece().getSymbol())) {
+                    if (getGrid().get(me[1] + 2 * rowAdds[i]).get(me[0] + 2 * colAdds[i]).getSymbol().equals(" "))
+                        a.add(a.size(), new int[] {me[0],me[1],me[0] + 2 * colAdds[i], me[1] + 2 * rowAdds[i]});
+                }
+            }
+        }
+
+        return a;
     }
 
 }

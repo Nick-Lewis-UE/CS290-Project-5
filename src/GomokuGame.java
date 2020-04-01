@@ -11,18 +11,20 @@ public class GomokuGame extends AbstractGame {
     @Override
     public int[] scanForMove() {
         System.out.println("Enter the coordinate to place your piece at!");
-        int[] loc = new int[2];
+
         Scanner scan = new Scanner(System.in);
         String letter = scan.findInLine(".").toUpperCase();
-        loc[0] = (int)letter.charAt(0)-64;
-        loc[1] = scan.nextInt();
+        int col = (int)letter.charAt(0)-64;
+        int row = scan.nextInt();
 
-        if (board.validMove(loc, turn)) {
+        int[] move = new int[] {col, row};
+
+        if (board.validMove(move, turn)) {
             System.out.println("Invalid row/column. Please try again.");
             return scanForMove();
         }
 
-        return loc;
+        return move;
 
     }
 }

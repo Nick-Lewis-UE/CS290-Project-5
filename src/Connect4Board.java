@@ -1,9 +1,5 @@
 public class Connect4Board extends RowBasedBoard {
 
-//    public Connect4Board(ArrayList<ArrayList<Piece>> grid) {
-//        this.grid = grid;
-//    }
-
     public Connect4Board() {
         this.num_col = 7;
         this.num_row = 6;
@@ -61,8 +57,8 @@ public class Connect4Board extends RowBasedBoard {
         return false;
     }
 
-    public boolean validMove(int[] loc, Player p) {
-        return (loc[0] <= 0 || loc[0] > num_col ||
-                !grid.get(0).get(loc[0] - 1).getSymbol().equals(" "));
+    public boolean validMove(int[] move, Player p) {
+        return (move[0] <= 0 || move[0] > num_col ||
+                !grid.get(0).get(move[0] - 1).getSymbol().equals(" "));
     }
 }

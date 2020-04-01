@@ -207,4 +207,45 @@ public class CheckersBoardTest extends BoardTest {
 
         Assert.assertArrayEquals(jumped, c1.getJumpedPosition(j));
     }
+
+    @Test
+    public void testFindLegalJumps() {
+        CheckersBoard b1 = new CheckersBoard();
+        Player p1 = new Player("x", "Nick");
+
+        Assert.assertTrue(b1.findLegalJumps(p1).isEmpty());
+
+        b1.takeMove(new Piece("x"), new int[] {1,2,2,3});
+        b1.takeMove(new Piece("o"), new int[] {4,5,3,4});
+        b1.takeMove(new Piece("o"), new int[] {0,5,1,4});
+        b1.takeMove(new Piece("x"), new int[] {7,2,6,3});
+        b1.takeMove(new Piece("o"), new int[] {6,5,5,4});
+
+        ArrayList<int[]> a = new ArrayList<>();
+        a.add(new int[] {2,3,4,5});
+        a.add(new int[] {2,3,0,5});
+        a.add(new int[] {6,3,4,5});
+        Assert.assertArrayEquals(a.get(0), b1.findLegalJumps(p1).get(0));
+        Assert.assertArrayEquals(a.get(1), b1.findLegalJumps(p1).get(1));
+        Assert.assertArrayEquals(a.get(2), b1.findLegalJumps(p1).get(2));
+    }
+
+    @Test
+    public void testfindLocalJumps() {
+        CheckersBoard c1 = new CheckersBoard();
+        Player p1 = new Player ("x", "Nick");
+
+        c1.takeMove(new Piece("x"), new int[] {1,2,2,3});
+        c1.takeMove(new Piece("o"), new int[] {4,5,3,4});
+        int[] me = new int[] {2,3};
+
+        ArrayList<int[]> a = new ArrayList<>();
+        a.add(new int[] {2,3,4,5});
+        Assert.assertArrayEquals(a.get(0), c1.findLocalJumps(me, p1).get(0));
+
+        c1.takeMove(new Piece("o"), new int[] {0,5,1,4});
+        a.add(new int[] {2,3,0,5});
+        Assert.assertArrayEquals(a.get(0), c1.findLocalJumps(me, p1).get(0));
+        Assert.assertArrayEquals(a.get(1), c1.findLocalJumps(me, p1).get(1));
+    }
 }

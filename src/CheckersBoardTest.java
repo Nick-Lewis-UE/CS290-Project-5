@@ -231,7 +231,7 @@ public class CheckersBoardTest extends BoardTest {
     }
 
     @Test
-    public void testfindLocalJumps() {
+    public void testFindLocalJumps() {
         CheckersBoard c1 = new CheckersBoard();
         Player p1 = new Player ("x", "Nick");
 
@@ -241,11 +241,22 @@ public class CheckersBoardTest extends BoardTest {
 
         ArrayList<int[]> a = new ArrayList<>();
         a.add(new int[] {2,3,4,5});
+
         Assert.assertArrayEquals(a.get(0), c1.findLocalJumps(me, p1).get(0));
 
         c1.takeMove(new Piece("o"), new int[] {0,5,1,4});
         a.add(new int[] {2,3,0,5});
         Assert.assertArrayEquals(a.get(0), c1.findLocalJumps(me, p1).get(0));
         Assert.assertArrayEquals(a.get(1), c1.findLocalJumps(me, p1).get(1));
+    }
+
+    @Test
+    public void testAppendMoveArray() {
+        CheckersBoard b1 = new CheckersBoard();
+
+        int[] a1 = new int[] {1,2,3,4};
+        int[] a2 = new int[] {5,6};
+
+        Assert.assertArrayEquals(new int[] {1,2,3,4,5,6}, b1.appendMoveArray(a1, a2));
     }
 }

@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static java.lang.Math.abs;
@@ -133,11 +134,7 @@ public class CheckersBoard extends AbstractBoard {
         for (int r = 0; r <(getGrid()).size(); r++) {
             for (int c = 0; c <(getGrid()).get(r).size(); c++) {
                 if (getGrid().get(r).get(c).getSymbol().equals(p.getPiece().getSymbol())) {
-                    ArrayList<int[]> localJumps = findLocalJumps(new int[]{c, r}, p);
-                    if (!localJumps.isEmpty())
-                        for (int[] localJump : localJumps) {
-                            a.add(a.size(), localJump);
-                        }
+                    a.addAll(findLocalJumps(new int[]{c, r}, p));
                 }
             }
         }
@@ -146,25 +143,55 @@ public class CheckersBoard extends AbstractBoard {
     }
 
     public ArrayList<int[]> findLocalJumps (int[] me, Player p) {
-        int[] colAdds = new int[] {1,1,-1,-1};
-        int[] rowAdds = new int[] {1,-1,1,-1};
-        ArrayList<int[]> a = new ArrayList<>();
+        int[] rowAdds;
+        int[] colAdds;
+        boolean moreJumps = false;
+        ArrayList<int[]> allMoves = new ArrayList<>();
 
-        for (int i = 0; i < 4; i++) {
-            if (me[1] + 2*rowAdds[i] < getGrid().size() &&
-                    me[1] + 2*rowAdds[i] >= 0 &&
-                    me[0] + 2*colAdds[i] < getGrid().get(1).size() &&
-                    me[0] + 2*colAdds[i] >= 0) {
+        if (p.getPiece().getSymbol().equals("x")) {
+            rowAdds = new int[] {1,1};
+            colAdds = new int[] {1,-1};
+        } else {
+            rowAdds = new int[] {-1,-1};
+            colAdds = new int[] {1,-1};
+        }
+
+        for (int i = 0; i < 2; i++) {
+            if (me[me.length-1] + 2*rowAdds[i] < getGrid().size() &&
+                    me[me.length-1] + 2*rowAdds[i] >= 0 &&
+                    me[me.length-2] + 2*colAdds[i] < getGrid().get(1).size() &&
+                    me[me.length-2] + 2*colAdds[i] >= 0) {
                 String nextPiece = getGrid().get(me[1] + rowAdds[i]).get(me[0] + colAdds[i]).getSymbol();
 
-                if (!nextPiece.equals(" ") && !nextPiece.equals(p.getPiece().getSymbol())) {
-                    if (getGrid().get(me[1] + 2 * rowAdds[i]).get(me[0] + 2 * colAdds[i]).getSymbol().equals(" "))
-                        a.add(a.size(), new int[] {me[0],me[1],me[0] + 2 * colAdds[i], me[1] + 2 * rowAdds[i]});
+                if (!nextPiece.equals(" ") &&
+                    !nextPiece.equals(p.getPiece().getSymbol()) &&
+                    getGrid().get(me[me.length-1] + 2 * rowAdds[i]).
+                            get(me[me.length-2] + 2 * colAdds[i]).getSymbol().equals(" ")) {
+                    int[] newMe = appendMoveArray(me,
+                            new int[] {me[me.length-2]+2*colAdds[i],
+                                    me[me.length-1]+2*rowAdds[i]});
+
+                    allMoves.addAll(findLocalJumps(newMe, p));
+                    moreJumps = true;
                 }
             }
         }
 
-        return a;
+        if (!moreJumps && me.length != 2) {
+            allMoves.add(me);
+        }
+
+        return allMoves;
+    }
+
+    protected int[] appendMoveArray (int[] soFar, int[] upNext) {
+        int[] combined = new int[soFar.length + upNext.length];
+
+        System.arraycopy(soFar, 0, combined, 0, soFar.length);
+
+        System.arraycopy(upNext, 0, combined, soFar.length + 0, upNext.length);
+
+        return combined;
     }
 
 }

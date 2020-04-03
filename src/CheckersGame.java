@@ -15,11 +15,6 @@ public class CheckersGame extends AbstractGame {
     public int[] scanForMove() { // returns in index format (0..7)
         int[] move = collectMove();
 
-        String moveArray = "";
-        for (int each : move)
-            moveArray = moveArray + each;
-        System.out.println(moveArray);
-
         if (!board.validMove(move, turn)) {
             System.out.println("Invalid move. Please try again.");
             return scanForMove();

@@ -1,7 +1,5 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 
 import static java.lang.Math.abs;
 
@@ -33,20 +31,21 @@ public class CheckersBoard extends AbstractBoard {
     @Override
     public String toString() {
         int row_num = 8;
-        String board = "|A|B|C|D|E|F|G|H|\n";
+        StringBuilder board = new StringBuilder("|A|B|C|D|E|F|G|H|\n");
         for (int i = 0; i < num_row; i++) {
-            board += "|"+grid.get(i).get(0).getSymbol()+
-                    "|"+grid.get(i).get(1).getSymbol()+
-                    "|"+grid.get(i).get(2).getSymbol()+
-                    "|"+grid.get(i).get(3).getSymbol()+
-                    "|"+grid.get(i).get(4).getSymbol()+
-                    "|"+grid.get(i).get(5).getSymbol()+
-                    "|"+grid.get(i).get(6).getSymbol()+
-                    "|"+grid.get(i).get(7).getSymbol()+
-                    "|" + " " + row_num-- + "\n";
+            board.append("|").
+                    append(grid.get(i).get(0).getSymbol()).append("|").
+                    append(grid.get(i).get(1).getSymbol()).append("|").
+                    append(grid.get(i).get(2).getSymbol()).append("|").
+                    append(grid.get(i).get(3).getSymbol()).append("|").
+                    append(grid.get(i).get(4).getSymbol()).append("|").
+                    append(grid.get(i).get(5).getSymbol()).append("|").
+                    append(grid.get(i).get(6).getSymbol()).append("|").
+                    append(grid.get(i).get(7).getSymbol()).append("|").
+                    append(" ").append(row_num--).append("\n");
         }
 
-        return board;
+        return board.toString();
     }
 
     @Override
@@ -259,7 +258,7 @@ public class CheckersBoard extends AbstractBoard {
 
         System.arraycopy(soFar, 0, combined, 0, soFar.length);
 
-        System.arraycopy(upNext, 0, combined, soFar.length + 0, upNext.length);
+        System.arraycopy(upNext, 0, combined, soFar.length, upNext.length);
 
         return combined;
     }

@@ -2,12 +2,29 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CheckersBoardTest extends BoardTest {
 
     int num_col = 8;
     int num_row = 8;
     int size = 64;
+
+    private String printMoves(CheckersBoard c, Player p) {
+        String moves = "{";
+        ArrayList<int[]> movelist = c.findLegalMoves(p);
+
+        for (int[] each : movelist) {
+            moves = moves + "{";
+            for (int each2 : each) {
+                moves = moves + each2;
+            }
+            moves = moves + "}";
+        }
+        moves = moves + "}";
+
+        return moves;
+    }
 
     @Test
     public void testConstructors() {
@@ -209,11 +226,81 @@ public class CheckersBoardTest extends BoardTest {
     }
 
     @Test
-    public void testFindLegalJumps() {
+    public void testFindLegalMoves() {
+        CheckersBoard c1 = new CheckersBoard();
+        Player p1 = new Player("x", "Nick");
+        ArrayList<int[]> a1 = c1.findLegalMoves(p1);
+        ArrayList<int[]> a2 = c1.findAllSimpleMoves(p1);
+
+        for (int i = 0; i < a2.size(); i++) {
+            Assert.assertArrayEquals(a2.get(i), a1.get(i));
+        }
+
+        c1.takeMove(new Piece("x"), new int[] {1,2,2,3});
+        c1.takeMove(new Piece("o"), new int[] {4,5,3,4});
+        c1.takeMove(new Piece("o"), new int[] {0,5,1,4});
+        c1.takeMove(new Piece("x"), new int[] {7,2,6,3});
+        c1.takeMove(new Piece("o"), new int[] {6,5,5,4});
+
+        ArrayList<int[]> a3 = c1.findLegalMoves(p1);
+        ArrayList<int[]> a4 = c1.findAllJumps(p1);
+
+
+        for (int i = 0; i < a4.size(); i++) {
+            Assert.assertArrayEquals(a4.get(i), a3.get(i));
+        }
+
+    }
+
+    @Test
+    public void testFindAllSimpleMoves() {
+        CheckersBoard c1 = new CheckersBoard();
+        Player p1 = new Player("x", "Nick");
+
+        ArrayList<int[]> a1 = new ArrayList<>();
+        a1.add(new int[] {1,2,2,3});
+        a1.add(new int[] {1,2,0,3});
+        a1.add(new int[] {3,2,4,3});
+        a1.add(new int[] {3,2,2,3});
+        a1.add(new int[] {5,2,6,3});
+        a1.add(new int[] {5,2,4,3});
+        a1.add(new int[] {7,2,6,3});
+
+        ArrayList<int[]> a2 = c1.findAllSimpleMoves(p1);
+
+        Assert.assertFalse(a2.isEmpty());
+
+        for (int i = 0; i < a2.size(); i++) {
+            Assert.assertArrayEquals(a1.get(i), a2.get(i));
+        }
+    }
+
+    @Test
+    public void testFindLocalSimpleMoves() {
+        CheckersBoard c1 = new CheckersBoard();
+        Player p1 = new Player("x", "Nick");
+
+        Assert.assertFalse(c1.findLocalSimpleMoves(new int[] {1,2}, p1).isEmpty());
+
+        Assert.assertArrayEquals(new int[] {1,2,2,3},
+                c1.findLocalSimpleMoves(new int[] {1,2}, p1).get(0));
+        Assert.assertArrayEquals(new int[] {1,2,0,3},
+                c1.findLocalSimpleMoves(new int[] {1,2}, p1).get(1));
+        Assert.assertTrue(c1.findLocalSimpleMoves(new int[] {7,0}, p1).isEmpty());
+
+        c1.takeMove(new Piece("o"), new int[] {4,5,3,4});
+        c1.takeMove(new Piece("o"), new int[] {3,4,2,3});
+
+        Assert.assertArrayEquals(new int[] {1,2,0,3},
+                c1.findLocalSimpleMoves(new int[] {1,2}, p1).get(0));
+    }
+
+    @Test
+    public void testFindAllJumps() {
         CheckersBoard b1 = new CheckersBoard();
         Player p1 = new Player("x", "Nick");
 
-        Assert.assertTrue(b1.findLegalJumps(p1).isEmpty());
+        Assert.assertTrue(b1.findAllJumps(p1).isEmpty());
 
         b1.takeMove(new Piece("x"), new int[] {1,2,2,3});
         b1.takeMove(new Piece("o"), new int[] {4,5,3,4});
@@ -225,9 +312,9 @@ public class CheckersBoardTest extends BoardTest {
         a.add(new int[] {2,3,4,5});
         a.add(new int[] {2,3,0,5});
         a.add(new int[] {6,3,4,5});
-        Assert.assertArrayEquals(a.get(0), b1.findLegalJumps(p1).get(0));
-        Assert.assertArrayEquals(a.get(1), b1.findLegalJumps(p1).get(1));
-        Assert.assertArrayEquals(a.get(2), b1.findLegalJumps(p1).get(2));
+        Assert.assertArrayEquals(a.get(0), b1.findAllJumps(p1).get(0));
+        Assert.assertArrayEquals(a.get(1), b1.findAllJumps(p1).get(1));
+        Assert.assertArrayEquals(a.get(2), b1.findAllJumps(p1).get(2));
     }
 
     @Test

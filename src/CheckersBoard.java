@@ -18,13 +18,15 @@ public class CheckersBoard extends AbstractBoard {
     public void takeMove(Piece p, int[] move) {
         Piece moved = grid.get(move[1]).get(move[0]);
 
-        grid.get(move[3]).set(move[2], moved);
-        grid.get(move[1]).set(move[0], new Piece());
+        for (int i = 3; i < move.length; i = i+2) {
+            grid.get(move[i]).set(move[i-1], moved);
+            grid.get(move[i-2]).set(move[i-3], new Piece());
 
-        if (isJumpMove(move)) {
-            int[] jumped = getJumpedPosition(move);
-            grid.get(jumped[1]).set(jumped[0], new Piece());
-            System.out.println(jumped[0] + " " + jumped[1]);
+            if (isJumpMove(move)) {
+//                int[] jumped = getJumpedPosition(move);
+                grid.get((move[i]+ move[i-2])/2).set((move[i-1]+move[i-3])/2, new Piece());
+//                System.out.println(jumped[0] + " " + jumped[1]);
+            }
         }
     }
 
@@ -229,7 +231,7 @@ public class CheckersBoard extends AbstractBoard {
                     me[me.length-1] + 2*rowAdds[i] >= 0 &&
                     me[me.length-2] + 2*colAdds[i] < getGrid().get(1).size() &&
                     me[me.length-2] + 2*colAdds[i] >= 0) {
-                String nextPiece = getGrid().get(me[1] + rowAdds[i]).get(me[0] + colAdds[i]).getSymbol();
+                String nextPiece = getGrid().get(me[me.length-1] + rowAdds[i]).get(me[me.length-2] + colAdds[i]).getSymbol();
 
                 if (!nextPiece.equals(" ") &&
                     !nextPiece.equals(p.getPiece().getSymbol()) &&

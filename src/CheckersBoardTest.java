@@ -2,7 +2,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CheckersBoardTest extends BoardTest {
 
@@ -26,6 +25,22 @@ public class CheckersBoardTest extends BoardTest {
         return moves;
     }
 
+    private String printJumps(CheckersBoard c, Player p) {
+        String moves = "{";
+        ArrayList<int[]> movelist = c.findAllJumps(p);
+
+        for (int[] each : movelist) {
+            moves = moves + "{";
+            for (int each2 : each) {
+                moves = moves + each2;
+            }
+            moves = moves + "}";
+        }
+        moves = moves + "}";
+
+        return moves;
+    }
+
     @Test
     public void testConstructors() {
         CheckersBoard c = new CheckersBoard();
@@ -36,6 +51,30 @@ public class CheckersBoardTest extends BoardTest {
 
     @Test
     public void testTakeMove() {
+        CheckersBoard c = new CheckersBoard();
+        Piece xPiece = new Piece("x");
+        Piece oPiece = new Piece("o");
+        System.out.println(c.toString());
+
+        c.takeMove(xPiece, new int[] {1,2,2,3});
+        System.out.println(c.toString());
+
+        c.takeMove(oPiece, new int[] {4,5,3,4});
+        System.out.println(c.toString());
+
+        c.takeMove(oPiece, new int[] {6,5,7,4});
+        System.out.println(c.toString());
+
+        c.takeMove(oPiece, new int[] {7,6,6,5});
+        System.out.println(c.toString());
+
+        c.takeMove(oPiece, new int[] {6,7,7,6});
+        System.out.println(c.toString());
+
+        c.takeMove(xPiece, new int[] {2,3,4,5,6,7});
+        System.out.println(c.toString());
+
+
     }
 
     @Test
@@ -188,6 +227,7 @@ public class CheckersBoardTest extends BoardTest {
         int[] move5 = new int[] {1,2,1,3};
         Assert.assertFalse(c1.validMove(move5, p1));
 
+
         // can't move backwards (need to write takeMove first)
 
         // must take forced jump
@@ -207,6 +247,8 @@ public class CheckersBoardTest extends BoardTest {
         j[3] = 5;
 
         Assert.assertTrue(c1.isJumpMove(j));
+
+        Assert.assertTrue(c1.isJumpMove(new int[] {3,6,5,4}));
     }
 
     @Test
@@ -335,6 +377,30 @@ public class CheckersBoardTest extends BoardTest {
         a.add(new int[] {2,3,0,5});
         Assert.assertArrayEquals(a.get(0), c1.findLocalJumps(me, p1).get(0));
         Assert.assertArrayEquals(a.get(1), c1.findLocalJumps(me, p1).get(1));
+    }
+
+    @Test
+    public void testFindLocalJumps_multipleJumps() {
+        CheckersBoard c1 = new CheckersBoard();
+        Player p1 = new Player("x", "Nick");
+        Piece oPiece = new Piece("o");
+
+        c1.takeMove(p1.getPiece(), new int[] {1,2,2,3});
+        c1.takeMove(oPiece, new int[] {4,5,3,4});
+        c1.takeMove(p1.getPiece(), new int[] {2,3,4,5});
+        c1.takeMove(oPiece, new int[] {3,6,5,4});
+        c1.takeMove(oPiece, new int[] {5,6,4,5});
+        c1.takeMove(oPiece, new int[] {5,4,4,3});
+
+        ArrayList<int[]> a = new ArrayList<>();
+        a.add(new int[] {3,2,5,4,3,6});
+
+        Assert.assertEquals(1, c1.findLocalJumps(new int[] {3,2},
+                p1).size());
+        Assert.assertArrayEquals(a.get(0), c1.findLocalJumps(new int[] {3,2},
+                p1).get(0));
+        Assert.assertTrue(c1.validMove(a.get(0),p1));
+
     }
 
     @Test

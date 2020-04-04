@@ -205,10 +205,7 @@ public class CheckersBoard extends AbstractBoard {
         }
 
         for (int i = 0; i < 2; i++) {
-            if (me[me.length-1] + rowAdds[i] < getGrid().size() &&
-                    me[me.length-1] + rowAdds[i] >= 0 &&
-                    me[me.length-2] + colAdds[i] < getGrid().get(1).size() &&
-                    me[me.length-2] + colAdds[i] >= 0) {
+            try {
                 String nextPiece = getGrid().get(me[1] + rowAdds[i]).get(me[0] + colAdds[i]).getSymbol();
 
                 if (nextPiece.equals(" ")) {
@@ -217,7 +214,7 @@ public class CheckersBoard extends AbstractBoard {
                                     me[me.length-1]+rowAdds[i]});
                     allMoves.add(newMe);
                 }
-            }
+            } catch (IndexOutOfBoundsException e) {}
         }
 
         return allMoves;
@@ -255,24 +252,22 @@ public class CheckersBoard extends AbstractBoard {
         }
 
         for (int i = 0; i < 2; i++) {
-            if (me[me.length-1] + 2*rowAdds[i] < getGrid().size() &&
-                    me[me.length-1] + 2*rowAdds[i] >= 0 &&
-                    me[me.length-2] + 2*colAdds[i] < getGrid().get(1).size() &&
-                    me[me.length-2] + 2*colAdds[i] >= 0) {
-                String nextPiece = getGrid().get(me[me.length-1] + rowAdds[i]).get(me[me.length-2] + colAdds[i]).getSymbol();
+            try {
+                String nextPiece = getGrid().get(me[me.length-1] + rowAdds[i]).
+                        get(me[me.length-2] + colAdds[i]).getSymbol();
 
                 if (!nextPiece.equals(" ") &&
-                    !nextPiece.equals(p.getSymbol()) &&
-                    getGrid().get(me[me.length-1] + 2 * rowAdds[i]).
-                            get(me[me.length-2] + 2 * colAdds[i]).getSymbol().equals(" ")) {
+                        !nextPiece.equals(p.getSymbol()) &&
+                        getGrid().get(me[me.length - 1] + 2 * rowAdds[i]).
+                                get(me[me.length - 2] + 2 * colAdds[i]).getSymbol().equals(" ")) {
                     int[] newMe = appendMoveArray(me,
-                            new int[] {me[me.length-2]+2*colAdds[i],
-                                    me[me.length-1]+2*rowAdds[i]});
+                            new int[]{me[me.length - 2] + 2 * colAdds[i],
+                                    me[me.length - 1] + 2 * rowAdds[i]});
 
                     allMoves.addAll(findLocalJumps(newMe, p));
                     moreJumps = true;
                 }
-            }
+            } catch(IndexOutOfBoundsException e) {}
         }
 
         if (!moreJumps && me.length != 2) {

@@ -9,37 +9,37 @@ public class CheckersBoardTest extends BoardTest {
     int num_row = 8;
     int size = 64;
 
-    private String printMoves(CheckersBoard c, Player p) {
-        String moves = "{";
-        ArrayList<int[]> movelist = c.findLegalMoves(p);
-
-        for (int[] each : movelist) {
-            moves = moves + "{";
-            for (int each2 : each) {
-                moves = moves + each2;
-            }
-            moves = moves + "}";
-        }
-        moves = moves + "}";
-
-        return moves;
-    }
-
-    private String printJumps(CheckersBoard c, Player p) {
-        String moves = "{";
-        ArrayList<int[]> movelist = c.findAllJumps(p);
-
-        for (int[] each : movelist) {
-            moves = moves + "{";
-            for (int each2 : each) {
-                moves = moves + each2;
-            }
-            moves = moves + "}";
-        }
-        moves = moves + "}";
-
-        return moves;
-    }
+//    private String printMoves(CheckersBoard c, Player p) {
+//        String moves = "{";
+//        ArrayList<int[]> movelist = c.findLegalMoves(p);
+//
+//        for (int[] each : movelist) {
+//            moves = moves + "{";
+//            for (int each2 : each) {
+//                moves = moves + each2;
+//            }
+//            moves = moves + "}";
+//        }
+//        moves = moves + "}";
+//
+//        return moves;
+//    }
+//
+//    private String printJumps(CheckersBoard c, Player p) {
+//        String moves = "{";
+//        ArrayList<int[]> movelist = c.findAllJumps(p);
+//
+//        for (int[] each : movelist) {
+//            moves = moves + "{";
+//            for (int each2 : each) {
+//                moves = moves + each2;
+//            }
+//            moves = moves + "}";
+//        }
+//        moves = moves + "}";
+//
+//        return moves;
+//    }
 
     @Test
     public void testConstructors() {
@@ -270,7 +270,7 @@ public class CheckersBoardTest extends BoardTest {
     @Test
     public void testFindLegalMoves() {
         CheckersBoard c1 = new CheckersBoard();
-        Player p1 = new Player("x", "Nick");
+        Piece p1 = new Piece("x");
         ArrayList<int[]> a1 = c1.findLegalMoves(p1);
         ArrayList<int[]> a2 = c1.findAllSimpleMoves(p1);
 
@@ -297,7 +297,7 @@ public class CheckersBoardTest extends BoardTest {
     @Test
     public void testFindAllSimpleMoves() {
         CheckersBoard c1 = new CheckersBoard();
-        Player p1 = new Player("x", "Nick");
+        Piece p1 = new Piece("x");
 
         ArrayList<int[]> a1 = new ArrayList<>();
         a1.add(new int[] {1,2,2,3});
@@ -340,7 +340,7 @@ public class CheckersBoardTest extends BoardTest {
     @Test
     public void testFindAllJumps() {
         CheckersBoard b1 = new CheckersBoard();
-        Player p1 = new Player("x", "Nick");
+        Piece p1 = new Piece("x");
 
         Assert.assertTrue(b1.findAllJumps(p1).isEmpty());
 

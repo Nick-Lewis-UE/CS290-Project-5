@@ -96,7 +96,7 @@ public class CheckersBoard extends AbstractBoard {
 
     @Override
     public boolean validMove(int[] move, Player p) {
-        ArrayList<int[]> moves = findLegalMoves(p);
+        ArrayList<int[]> moves = findLegalMoves(p.getPiece());
 
         for (int[] each : moves) {
             if (Arrays.equals(each, move))
@@ -145,7 +145,10 @@ public class CheckersBoard extends AbstractBoard {
 
     @Override
     public boolean hasTie() {
-        return false;
+        if (findLegalMoves(new Piece("x")).isEmpty() &&
+        findLegalMoves(new Piece("o")).isEmpty())
+            return true;
+        else return false;
     }
 
     protected boolean isJumpMove(int[] loc) {
@@ -160,7 +163,7 @@ public class CheckersBoard extends AbstractBoard {
         return jumped;
     }
 
-    public ArrayList<int[]> findLegalMoves(Player p) {
+    public ArrayList<int[]> findLegalMoves(Piece p) {
         ArrayList<int[]> legalMoves;
 
         legalMoves = findAllJumps(p);
@@ -171,13 +174,13 @@ public class CheckersBoard extends AbstractBoard {
         return legalMoves;
     }
 
-    public ArrayList<int[]> findAllSimpleMoves(Player p) {
+    public ArrayList<int[]> findAllSimpleMoves(Piece p) {
         ArrayList<int[]> a = new ArrayList<>();
 
         for (int r = 0; r <(getGrid()).size(); r++) {
             for (int c = 0; c <(getGrid()).get(r).size(); c++) {
                 if (getGrid().get(r).get(c).getSymbol().toLowerCase().equals(
-                        p.getPiece().getSymbol())) {
+                        p.getSymbol())) {
                     a.addAll(findLocalSimpleMoves(new int[]{c, r},
                             getGrid().get(r).get(c)));
                 }
@@ -220,13 +223,13 @@ public class CheckersBoard extends AbstractBoard {
         return allMoves;
     }
 
-    public ArrayList<int[]> findAllJumps(Player p) {
+    public ArrayList<int[]> findAllJumps(Piece p) {
         ArrayList<int[]> a = new ArrayList<>();
 
         for (int r = 0; r <(getGrid()).size(); r++) {
             for (int c = 0; c <(getGrid()).get(r).size(); c++) {
                 if (getGrid().get(r).get(c).getSymbol().toLowerCase().equals(
-                        p.getPiece().getSymbol())) {
+                        p.getSymbol())) {
                     a.addAll(findLocalJumps(new int[]{c, r},
                             getGrid().get(r).get(c)));
                 }

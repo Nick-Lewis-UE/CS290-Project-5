@@ -320,7 +320,7 @@ public class CheckersBoardTest extends BoardTest {
     @Test
     public void testFindLocalSimpleMoves() {
         CheckersBoard c1 = new CheckersBoard();
-        Player p1 = new Player("x", "Nick");
+        Piece p1 = new Piece("x");
 
         Assert.assertFalse(c1.findLocalSimpleMoves(new int[] {1,2}, p1).isEmpty());
 
@@ -362,7 +362,7 @@ public class CheckersBoardTest extends BoardTest {
     @Test
     public void testFindLocalJumps() {
         CheckersBoard c1 = new CheckersBoard();
-        Player p1 = new Player ("x", "Nick");
+        Piece p1 = new Piece ("x");
 
         c1.takeMove(new Piece("x"), new int[] {1,2,2,3});
         c1.takeMove(new Piece("o"), new int[] {4,5,3,4});
@@ -382,12 +382,13 @@ public class CheckersBoardTest extends BoardTest {
     @Test
     public void testFindLocalJumps_multipleJumps() {
         CheckersBoard c1 = new CheckersBoard();
-        Player p1 = new Player("x", "Nick");
+        Piece p1 = new Piece("x");
+        Player p = new Player("x", "Nick");
         Piece oPiece = new Piece("o");
 
-        c1.takeMove(p1.getPiece(), new int[] {1,2,2,3});
+        c1.takeMove(p1, new int[] {1,2,2,3});
         c1.takeMove(oPiece, new int[] {4,5,3,4});
-        c1.takeMove(p1.getPiece(), new int[] {2,3,4,5});
+        c1.takeMove(p1, new int[] {2,3,4,5});
         c1.takeMove(oPiece, new int[] {3,6,5,4});
         c1.takeMove(oPiece, new int[] {5,6,4,5});
         c1.takeMove(oPiece, new int[] {5,4,4,3});
@@ -399,7 +400,7 @@ public class CheckersBoardTest extends BoardTest {
                 p1).size());
         Assert.assertArrayEquals(a.get(0), c1.findLocalJumps(new int[] {3,2},
                 p1).get(0));
-        Assert.assertTrue(c1.validMove(a.get(0),p1));
+        Assert.assertTrue(c1.validMove(a.get(0),p));
 
     }
 

@@ -16,15 +16,30 @@ public class CheckersBoard extends AbstractBoard {
     public void takeMove(Piece p, int[] move) {
         Piece moved = grid.get(move[1]).get(move[0]);
 
-        for (int i = 3; i < move.length; i = i+2) {
-            grid.get(move[i]).set(move[i-1], moved);
-            grid.get(move[i-2]).set(move[i-3], new Piece());
+        for (int i = 3; i < move.length; i = i + 2) {
+            grid.get(move[i]).set(move[i - 1], moved);
+            grid.get(move[i - 2]).set(move[i - 3], new Piece());
 
-            if (isJumpMove(move)) {
-//                int[] jumped = getJumpedPosition(move);
-                grid.get((move[i]+ move[i-2])/2).set((move[i-1]+move[i-3])/2, new Piece());
-//                System.out.println(jumped[0] + " " + jumped[1]);
+            if (kingMe(move, p)) {
+                grid.get(move[move.length - 1]).set(move[move.length - 2],
+                        new Piece(moved.getSymbol().toUpperCase()));
             }
+        }
+    }
+
+    protected boolean kingMe(int[] move, Piece p) {
+        int kingRow = 7;
+
+        if (p.getSymbol().equals("x")) {
+            kingRow = 7;
+        } else if (p.getSymbol().equals("o")){
+            kingRow = 0;
+        }
+
+        if (move[move.length-1] == kingRow) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -156,8 +171,10 @@ public class CheckersBoard extends AbstractBoard {
 
         for (int r = 0; r <(getGrid()).size(); r++) {
             for (int c = 0; c <(getGrid()).get(r).size(); c++) {
-                if (getGrid().get(r).get(c).getSymbol().equals(p.getPiece().getSymbol())) {
-                    a.addAll(findLocalSimpleMoves(new int[]{c, r}, p));
+                if (getGrid().get(r).get(c).getSymbol().toLowerCase().equals(
+                        p.getPiece().getSymbol())) {
+                    a.addAll(findLocalSimpleMoves(new int[]{c, r},
+                            getGrid().get(r).get(c)));
                 }
             }
         }
@@ -165,12 +182,13 @@ public class CheckersBoard extends AbstractBoard {
         return a;
     }
 
-    public ArrayList<int[]> findLocalSimpleMoves(int[] me, Player p) {
+    public ArrayList<int[]> findLocalSimpleMoves(int[] me, Piece p) {
         int[] rowAdds;
         int[] colAdds;
         ArrayList<int[]> allMoves = new ArrayList<>();
 
-        if (p.getPiece().getSymbol().equals("x")) {
+        if (p.getSymbol().equals("x") ||
+        p.getSymbol().equals("O")) {
             rowAdds = new int[] {1,1};
             colAdds = new int[] {1,-1};
         } else {
@@ -202,8 +220,10 @@ public class CheckersBoard extends AbstractBoard {
 
         for (int r = 0; r <(getGrid()).size(); r++) {
             for (int c = 0; c <(getGrid()).get(r).size(); c++) {
-                if (getGrid().get(r).get(c).getSymbol().equals(p.getPiece().getSymbol())) {
-                    a.addAll(findLocalJumps(new int[]{c, r}, p));
+                if (getGrid().get(r).get(c).getSymbol().toLowerCase().equals(
+                        p.getPiece().getSymbol())) {
+                    a.addAll(findLocalJumps(new int[]{c, r},
+                            getGrid().get(r).get(c)));
                 }
             }
         }
@@ -211,13 +231,14 @@ public class CheckersBoard extends AbstractBoard {
         return a;
     }
 
-    public ArrayList<int[]> findLocalJumps (int[] me, Player p) {
+    public ArrayList<int[]> findLocalJumps (int[] me, Piece p) {
         int[] rowAdds;
         int[] colAdds;
         boolean moreJumps = false;
         ArrayList<int[]> allMoves = new ArrayList<>();
 
-        if (p.getPiece().getSymbol().equals("x")) {
+        if (p.getSymbol().equals("x") ||
+        p.getSymbol().equals("O")) {
             rowAdds = new int[] {1,1};
             colAdds = new int[] {1,-1};
         } else {
@@ -233,7 +254,7 @@ public class CheckersBoard extends AbstractBoard {
                 String nextPiece = getGrid().get(me[me.length-1] + rowAdds[i]).get(me[me.length-2] + colAdds[i]).getSymbol();
 
                 if (!nextPiece.equals(" ") &&
-                    !nextPiece.equals(p.getPiece().getSymbol()) &&
+                    !nextPiece.equals(p.getSymbol()) &&
                     getGrid().get(me[me.length-1] + 2 * rowAdds[i]).
                             get(me[me.length-2] + 2 * colAdds[i]).getSymbol().equals(" ")) {
                     int[] newMe = appendMoveArray(me,

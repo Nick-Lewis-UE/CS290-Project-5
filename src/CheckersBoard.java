@@ -20,27 +20,32 @@ public class CheckersBoard extends AbstractBoard {
             grid.get(move[i]).set(move[i - 1], moved);
             grid.get(move[i - 2]).set(move[i - 3], new Piece());
 
-            if (kingMe(move, p)) {
-                grid.get(move[move.length - 1]).set(move[move.length - 2],
-                        new Piece(moved.getSymbol().toUpperCase()));
+            if (isJumpMove(move)) {
+//                int[] jumped = getJumpedPosition(move);
+                grid.get((move[i]+ move[i-2])/2).set((move[i-1]+move[i-3])/2,
+                        new Piece());
+//                System.out.println(jumped[0] + " " + jumped[1]);
             }
+        }
+
+        if (kingMe(move, p)) {
+            grid.get(move[move.length - 1]).set(move[move.length - 2],
+                    new Piece(moved.getSymbol().toUpperCase()));
         }
     }
 
     protected boolean kingMe(int[] move, Piece p) {
-        int kingRow = 7;
+        int kingRow;
 
         if (p.getSymbol().equals("x")) {
             kingRow = 7;
         } else if (p.getSymbol().equals("o")){
             kingRow = 0;
-        }
+        } else return false;
 
         if (move[move.length-1] == kingRow) {
             return true;
-        } else {
-            return false;
-        }
+        } else return false;
     }
 
     @Override
